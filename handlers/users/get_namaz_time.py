@@ -1,5 +1,8 @@
+from aiogram import types
+from aiogram.dispatcher.filters import Command
 from aiogram.types import CallbackQuery
 from keyboards.inline.callback_datas import region_button
+from keyboards.inline.region_button import region_buttons
 from loader import dp, bot
 import requests
 from bs4 import BeautifulSoup
@@ -30,7 +33,7 @@ async def get_callback_by_region_name(callback: CallbackQuery):
             namaz_time_dict.update({
                 a.text.strip(): b.text
             })
-        await bot.edit_message_text(text=f'{region_name_list[int(r_number)]} бойынша намаз уақыты төмендегідей\n'
+        await bot.edit_message_text(text=f'{region_name_list[int(r_number)]} қаласы бойынша намаз уақыты төмендегідей\n'
                                          f'Таң {namaz_time_dict["Таң"]}\n'
                                          f'Күн {namaz_time_dict["Күн"]}\n'
                                          f'Бесін {namaz_time_dict["Бесін"]}\n'
@@ -39,3 +42,8 @@ async def get_callback_by_region_name(callback: CallbackQuery):
                                          f'Құптан {namaz_time_dict["Құптан"]}\n',
                                     message_id=callback.message.message_id,
                                     chat_id=callback.message.chat.id)
+
+
+@dp.message_handler(Command('location'))
+async def send_location(message: types.Message):
+    await message.answer(text='Орналасқан жеріңізді көрсетіңіз', reply_markup=region_buttons)

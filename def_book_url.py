@@ -20,9 +20,9 @@ headers = ['Коран и его тафсиры', 'Акыда (Вероубеж�
 
 
 # get all book links from category
-def get_all_links(url) -> list:
-    link_list = []
-    for x in range(1, 6):
+def get_all_links(url) -> dict:
+    dict_of_link = {}
+    for x in range(1, 8):
         re = requests.get(url=f'{url}?page={x}')
         if r.status_code == 200:
             soups = BeautifulSoup(re.text, 'lxml')
@@ -33,10 +33,14 @@ def get_all_links(url) -> list:
             try:
                 books = card_document.find_all('a', class_='books-on-subject__image-link')
                 for book in books:
-                    link_list.append('https://azan.ru' + book.get('href'))
+                    # link_list.append('https://azan.ru' + book.get('href'))
+                    dict_of_link.update({
+                        book.find('img').get('alt'): 'https://azan.ru' + book.get('href')
+                    })
             except SyntaxError:
                 continue
-    return link_list
+
+    return dict_of_link
 
 
 urls = ['https://azan.ru/maktabah/kutub/Koran-i-ego-tafsiryi',

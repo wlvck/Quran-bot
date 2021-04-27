@@ -24,6 +24,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\handlers\users\r_book.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\keyboards\default\category_menu.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\keyboards\inline\callback_datas.py">
           <value>
             <Attribute>
