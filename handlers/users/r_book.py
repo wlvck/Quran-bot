@@ -1,3 +1,5 @@
+import urllib.parse
+
 import requests
 from aiogram import types
 import json
@@ -87,17 +89,17 @@ async def send_message(message: types.Message):
                             li.append(link)
                             if len(li) == 1:
                                 r = requests.get(url=link)
+                                url = 'https://azan.ru'
                                 soup = BeautifulSoup(r.text, 'lxml')
                                 section = soup.find('section', class_='card document')
                                 h1 = section.find('h1').text.strip()
-                                # description = section.find('div', class_='document__description
-                                # document__description_full')
-                                user_book = section.find('a', class_='button button_brown').get('href')
+                                book = section.find('a', class_='button button_brown').get('href')
                                 photo = section.find('img', class_='course-author__book-image')
                                 await bot.send_photo(chat_id=message.chat.id,
-                                                     photo=f'https://azan.ru{photo.get("src")}',
+                                                     photo=f'{url+urllib.parse.quote(photo.get("src"))}',
                                                      caption=f'{h1}\n\n')
-                                await bot.send_document(chat_id=message.chat.id, document=f'https://azan.ru{user_book}')
+                                await bot.send_document(chat_id=message.chat.id,
+                                                        document=f'{url+urllib.parse.quote(book)}')
 
                             else:
                                 continue

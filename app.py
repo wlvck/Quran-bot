@@ -4,7 +4,6 @@ from handlers.users import *
 
 
 async def on_startup(dispatcher):
-    # Уведомляет про запуск
     await on_startup_notify(dispatcher)
 
 

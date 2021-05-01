@@ -33,7 +33,8 @@ async def get_callback_by_region_name(callback: CallbackQuery):
             namaz_time_dict.update({
                 a.text.strip(): b.text
             })
-        await bot.edit_message_text(text=f'{region_name_list[int(r_number)]} қаласы бойынша намаз уақыты төмендегідей\n'
+        await bot.edit_message_text(text=f'{region_name_list[int(r_number)]} қаласы бойынша намаз уақыты'
+                                         f' төмендегідей\n\n'
                                          f'Таң {namaz_time_dict["Таң"]}\n'
                                          f'Күн {namaz_time_dict["Күн"]}\n'
                                          f'Бесін {namaz_time_dict["Бесін"]}\n'
